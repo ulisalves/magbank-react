@@ -6,7 +6,7 @@ import "./Hero.scss";
 
 const Hero = ({ onClick }) => (
   <Card className="text-center text-light hero">
-    <Row className="my-lg-5">
+    <Row className="my-lg-5 hero-row">
       <Col lg className="text-lg-end mt-lg-5">
         <Image className="d-lg-none" src={logo} />
         <Image className="d-none d-lg-inline-block" src={logoDesktop} />

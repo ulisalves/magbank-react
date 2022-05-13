@@ -1,5 +1,10 @@
-.hero{
+div.hero{
     background-image: url('../assets/hero.jpg');
     background-size: cover;
     background-position: center top;
+    border-radius: 0;
+
+    &-row{
+        margin-right: 0;
+    }
 }

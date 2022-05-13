@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import {
   Container,
   Navbar,
@@ -13,13 +14,15 @@ import logo from "../assets/logo.svg";
 const Navigation = ({ handleCreateAcc }) => (
   <Navbar variant="dark" expand="lg">
     <Container>
-      <Navbar.Brand href="#">
-        <img
-          src={logo}
-          height="30"
-          className="d-inline-block align-top"
-          alt="Magbank logo"
-        />
+      <Navbar.Brand href="#home">
+        <Link to="/">
+          <img
+            src={logo}
+            height="30"
+            className="d-inline-block align-top"
+            alt="Magbank logo"
+          />
+        </Link>
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="navbarScroll" />
       <Navbar.Collapse id="navbarScroll">
@@ -35,15 +38,11 @@ const Navigation = ({ handleCreateAcc }) => (
         <ButtonGroup aria-label="Basic example">
           <Button variant="outline-light">
             <NavDropdown title="Acessar minha conta" id="basic-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                Another action
+              <NavDropdown.Item>
+                <Link to="/login">Pessoa física</Link>
               </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">
-                Separated link
-              </NavDropdown.Item>
+              <NavDropdown.Item>Pessoa jurídica</NavDropdown.Item>
             </NavDropdown>
           </Button>
           <Button variant="outline-light" onClick={handleCreateAcc}>

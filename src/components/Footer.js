@@ -17,10 +17,12 @@ const Footer = () => (
     <Container>
       <Row className="text-center py-5">
         <Col xs={12} lg={6} className="text-lg-left py-xs-5">
+          {/*mb-5*/}
           <Image src={logo} />
         </Col>
 
         <Col xs={12} lg={4} className="py-xs-5">
+          {/*mb-5*/}
           <Image src={applestore} />
           <Image src={googleplay} className="footer-space" />
         </Col>

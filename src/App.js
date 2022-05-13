@@ -1,36 +1,41 @@
 import React, { useState } from "react";
+import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import Hero from "./components/Hero";
-import CreditCard from "./components/CreditCard";
-import CardList from "./components/CardList";
-import CenteredButton from "./components/CenteredButton";
-import Institutional from "./components/Institutional";
-import Faq from "./components/Faq";
 import Footer from "./components/Footer";
 import AccountModal from "./components/AccountModal";
 import "./App.scss";
 
-import posts from "./data/posts";
+import Home from "./views/Home";
+import Login from "./views/Login";
+import Dashboard from "./views/Dashboard";
 
 const App = () => {
   const [showModal, setShowModal] = useState(false);
 
   return (
-    <div className="App">
+    <>
       <Navbar handleCreateAcc={() => setShowModal(true)} />
-      <Hero onClick={() => setShowModal(true)} />
+      <Routes>
+        <Route path="/" element={<Home />} />
 
-      <CreditCard />
-      <CardList posts={posts} />
-      <CenteredButton onClick={() => setShowModal(true)}>
-        Abra sua conta
-      </CenteredButton>
+        <Route
+          path="/"
+          element={<Home handleClick={() => setShowModal(true)} />}
+        />
 
-      <Institutional onClick={() => setShowModal(true)} />
-      <Faq />
+        {/*<Route path="/" exact>
+             <Home handleClick={() => setShowModal(true)} />
+            </Route>
+            <Route path="/login" element={<h2>Hello React Router!</h2>} /></Routes>*/}
+
+        <Route path="/login" element={<Login />} />
+
+        <Route path="/dashboard" element={<Dashboard />} />
+      </Routes>
+
       <Footer />
       <AccountModal show={showModal} handleClose={() => setShowModal(false)} />
-    </div>
+    </>
   );
 };
 
