@@ -1,61 +1,40 @@
-import React from "react";
-import { Container, Row, Col, Button, Tabs, Tab, Table } from "react-bootstrap";
+import React, { useState } from "react";
+import { Routes, Route, Link } from "react-router-dom";
+import { Container, Row, Col, Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircle, faUser } from "@fortawesome/free-solid-svg-icons";
+
+import AccountBalance from "../components/AccountBalance";
+import AccountPayments from "../components/AccountPayments";
+import AccountHistory from "../components/AccountHistory";
 
 import "./Dashboard.scss";
 
 const Dashboard = ({ className = false }) => {
-  const latestData = [
-    {
-      date: "22/07",
-      description: "SAQUE 24h 012345",
-      value: "300,00",
-    },
-    {
-      date: "21/07",
-      description: "SUPERMERCADO 02323626",
-      value: "275,00",
-    },
-    {
-      date: "20/07",
-      description: "NETFLIX 235236",
-      value: "30,00",
-    },
-    {
-      date: "15/07",
-      description: "FARMACIA 12125",
-      value: "350,00",
-    },
-    {
-      date: "15/07",
-      description: "FARMACIA 12125",
-      value: "350,00",
-    },
+  const [activeLink, setActiveLink] = useState(0);
+
+  const links = [
+    { text: "Minha Conta", path: "", exact: true },
+    { text: "Pagamentos", path: "payments" },
+    { text: "Extrato", path: "history" },
   ];
 
-  const futureData = [
-    {
-      date: "22/08",
-      description: "SALÁRIO 012345",
-      value: "3000,00",
-    },
-    {
-      date: "21/08",
-      description: "IMAGINE 02323626",
-      value: "275,00",
-    },
-    {
-      date: "20/08",
-      description: "NETFLIX 235236",
-      value: "30,00",
-    },
-    {
-      date: "15/08",
-      description: "FARMACIA 12125",
-      value: "350,00",
-    },
-  ];
+  const data = {
+    latestBalance: [
+      { date: "22/07", description: "SAQUE 24h 012345", value: "300,00" },
+      { date: "21/07", description: "SUPERMERCADO 02323626", value: "275,00" },
+      { date: "20/07", description: "NETFLIX 235236", value: "30,00" },
+      { date: "15/07", description: "FARMACIA 12125", value: "350,00" },
+      { date: "15/07", description: "FARMACIA 12125", value: "350,00" },
+    ],
+    futureBalance: [
+      { date: "22/08", description: "SALÁRIO 012345", value: "3000,00" },
+      { date: "21/08", description: "IMAGINE 02323626", value: "275,00" },
+      { date: "20/08", description: "NETFLIX 235236", value: "30,00" },
+      { date: "15/08", description: "FARMACIA 12125", value: "350,00" },
+    ],
+    history: ["historico 1", "historico 2"],
+  };
 
   return (
     <Container className={`dashboard py-5 ${className ? className : ""}`}>
@@ -78,85 +57,36 @@ const Dashboard = ({ className = false }) => {
               <p className="text-muted">Ag: 1234 C/C: 4321-5</p>
             </Col>
           </Row>
-          <div className="d-grid gap-2">
-            <Button
-              className="dashboard__button dashboard__button--active"
-              variant="link"
-              size="lg"
+
+          {links.map(({ text, path, exact }, key) => (
+            <Link
+              className="dashboard__link"
+              to={path}
+              exact={exact ? exact : false}
+              key={key}
             >
-              Minha conta
-            </Button>
-            <Button className="dashboard__button" variant="link" size="lg">
-              Pagamentos
-            </Button>
-            <Button className="dashboard__button" variant="link" size="lg">
-              Extrato
-            </Button>
-          </div>
+              <div className="d-grid gap-2">
+                <Button
+                  className={`dashboard__button text-left ${
+                    key === activeLink ? "dashboard__button--active" : ""
+                  }`}
+                  variant="link"
+                  size="lg"
+                  //block="true"
+                  onClick={() => setActiveLink(key)}
+                >
+                  {text}
+                </Button>
+              </div>
+            </Link>
+          ))}
         </Col>
-        <Col xs={12} lg={3} className="mt-lg-5 pt-lg-4">
-          <h3 className="my-5">Conta corrente</h3>
-          <h6>
-            <small>
-              <strong>Saldo em conta corrente</strong>
-            </small>
-          </h6>
-          <h4 className="text-success mb-4">
-            <small>R$</small>3.500<small>,00</small>
-          </h4>
-          <h6>
-            <small>
-              <strong>Cheque especial</strong>
-            </small>
-          </h6>
-          <p className="mb-0">Limite disponível</p>
-          <p className="mb-4">R$ 5.000,00</p>
-          <Button variant="secondary">Ver extrato</Button>
-        </Col>
-        <Col xs={12} lg={5} className="mt-lg-5 pt-lg-5">
-          <Tabs className="mt-5 pt-lg-5" defaultActiveKey="latest">
-            <Tab eventKey="latest" title="Últimos Lançamentos">
-              <Table striped borderless>
-                <thead>
-                  <tr>
-                    <th>Data</th>
-                    <th>Descrição</th>
-                    <th>Valor (R$)</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {latestData.map(({ date, description, value }) => (
-                    <tr>
-                      <td>{date}</td>
-                      <td>{description}</td>
-                      <td>{value}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </Table>
-            </Tab>
-            <Tab eventKey="future" title="Lançamentos Futuros">
-              <Table striped borderless>
-                <thead>
-                  <tr>
-                    <th>Data</th>
-                    <th>Descrição</th>
-                    <th>Valor (R$)</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {futureData.map(({ date, description, value }) => (
-                    <tr>
-                      <td>{date}</td>
-                      <td>{description}</td>
-                      <td>{value}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </Table>
-            </Tab>
-          </Tabs>
-        </Col>
+
+        <Routes>
+          <Route path="payments" element={<AccountPayments />} />
+          <Route path="history" element={<AccountHistory data={data} />} />
+          <Route path="" element={<AccountBalance data={data} />} />
+        </Routes>
       </Row>
     </Container>
   );

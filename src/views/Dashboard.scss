@@ -21,11 +21,28 @@
         text-align: left;
         color: $color-primary;
         text-decoration: none;
+        margin-bottom: 0.5rem;
+
         &:hover,
-        &--active {
-            color: #fff;
-            background-color: $color-primary;
+        &:focus,
+        &--active,
+        &--active:hover {
             text-decoration: none;
+        }
+
+        &:hover,
+        &--active,
+        &--active:hover {
+            color: #fff;
+        }
+
+        &:hover{
+            background-color: $color-muted;
+        }
+
+        &--active,
+        &--active:hover {
+            background-color: $color-primary;
         }
     }
 
@@ -36,4 +53,11 @@
     .nav-tabs .nav-link.active {
       color: $color-muted;
     }    
+}
+
+a.dashboard__link,
+a.dashboard__link:active,
+a.dashboard__link:focus,
+a.dashboard__link:hover {
+    text-decoration: none;
 }

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import AccountModal from "./components/AccountModal";
@@ -16,21 +16,12 @@ const App = () => {
     <>
       <Navbar handleCreateAcc={() => setShowModal(true)} />
       <Routes>
-        <Route path="/" element={<Home />} />
-
         <Route
           path="/"
           element={<Home handleClick={() => setShowModal(true)} />}
         />
-
-        {/*<Route path="/" exact>
-             <Home handleClick={() => setShowModal(true)} />
-            </Route>
-            <Route path="/login" element={<h2>Hello React Router!</h2>} /></Routes>*/}
-
         <Route path="/login" element={<Login />} />
-
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard/*" element={<Dashboard />} />
       </Routes>
 
       <Footer />
